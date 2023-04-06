@@ -28,11 +28,14 @@ public class PlayerMainMovementScript : MonoBehaviour
     [Space(5)]
 
     [Header("Stamina")]
-    [SerializeField]
-    TMP_Text _staminaText;
+    
     [SerializeField]
     Image _exhaustedIndicator;
 
+    [SerializeField]
+    Slider _staminaSlider;
+    [SerializeField]
+    Image _stamina_SliderColor;
     [SerializeField]
     float _staminaDepletionMultiplier;
     [SerializeField]
@@ -152,10 +155,10 @@ public class PlayerMainMovementScript : MonoBehaviour
             _finalVertForce = 0;
         }
         //player can only jump if that are grounded
-        if (Input.GetKeyDown(KeyCode.Space)&& !_isFalling)
+        if (Input.GetKey(KeyCode.Space)&& !_isFalling)
         {
             //adds upward force//take initial verical force multiplies it by gravity and inverses it by a factor of 3
-            _finalVertForce += Mathf.Sqrt((_initialVertForce * -3 * _gravity));
+            _finalVertForce += Mathf.Sqrt((_initialVertForce * -1 * _gravity));
 
         }
         //gravity is -9.81 ms^2, as such Time.deltaTime is implemented twice, here, and once again in movement method
@@ -185,13 +188,17 @@ public class PlayerMainMovementScript : MonoBehaviour
 
     void MovementSpeedManager()
     {
-        if(_staminaText.enabled)
-            _staminaText.text = _currentStamina.ToString("F0");
+        //if(_staminaText.enabled)
+        //_staminaText.text = _currentStamina.ToString("F0");
+
+        if (_staminaSlider.enabled)
+            _staminaSlider.value = _currentStamina;
 
         if (_currentStamina >= _maxStamina)
         {
             _exhaustedIndicator.enabled = false;
             _exhausted = false;
+            _stamina_SliderColor.color = Color.yellow;
         }
 
        
@@ -242,6 +249,7 @@ public class PlayerMainMovementScript : MonoBehaviour
                 if (_exhausted)//when exhausted move speed decreases drastically
                 {
                     _exhaustedIndicator.enabled = true;
+                    _stamina_SliderColor.color = Color.gray;
                     _finalSpeed = 1;
                 }
                 else//if not exhausted, return to normal jogging speed
@@ -323,7 +331,6 @@ public class PlayerMainMovementScript : MonoBehaviour
             }
         }
     }
-
 
     public void MouseSensitivityChange()
     {

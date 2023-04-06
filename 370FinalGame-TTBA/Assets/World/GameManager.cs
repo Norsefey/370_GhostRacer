@@ -17,12 +17,10 @@ public class GameManager : MonoBehaviour
     TMP_Text _countDownText;
     [SerializeField]
     TMP_Text _raceTimerText;
-    [SerializeField]
-    TMP_Text _playerStaminaText;
+    
 
     [Header("UI Panels")]
-    [SerializeField]
-    Image _staminaPanel;
+    
     [SerializeField]
     Image _countDownPanel;
     [SerializeField]
@@ -37,6 +35,9 @@ public class GameManager : MonoBehaviour
     [Header("Sliders")]
     [SerializeField]
     Slider _mouseSensitivitySlider;
+    [SerializeField]
+    Slider _staminaSlider;
+    
 
     bool _uiIshown = false;
 
@@ -139,10 +140,11 @@ public class GameManager : MonoBehaviour
         _mainMenuButton.gameObject.SetActive(false);
         _replayButton.gameObject.SetActive(false);
         _mouseSensitivitySlider.gameObject.SetActive(false);
-
+        _staminaSlider.gameObject.SetActive(false); 
         _positionText.enabled = false;
         _raceTimerText.enabled = false;
         _crosshair.enabled = false;
+        
     }
 
 
@@ -218,6 +220,7 @@ public class GameManager : MonoBehaviour
             
             //enable race UI
             _positionText.enabled = true;
+            _staminaSlider.gameObject.SetActive(true);
             _raceTimerText.enabled = true;
             _crosshair.enabled = PlayerStats._activeTrickster;
             
@@ -276,10 +279,8 @@ public class GameManager : MonoBehaviour
             if (!_uiIshown)
             {
                 _positionText.enabled = false;
-                _playerStaminaText.enabled = false;
-                _staminaPanel.enabled = false;
-
-
+                _staminaSlider.gameObject.SetActive(false);
+                
                 _mainMenuButton.gameObject.SetActive(true);
                 _replayButton.gameObject.SetActive(true);
 

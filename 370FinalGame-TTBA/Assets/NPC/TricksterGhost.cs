@@ -45,7 +45,7 @@ public class TricksterGhost : MonoBehaviour
             _playerMainMovementScript = _playerRef.GetComponent<PlayerMainMovementScript>();
             
         }
-        _moveSpeed = PlayerStats._finalBaseSpeed / 2;
+        _moveSpeed = PlayerStats._finalBaseSpeed;
 
         _tricksterActiveIndicator.enabled = false;
     }
