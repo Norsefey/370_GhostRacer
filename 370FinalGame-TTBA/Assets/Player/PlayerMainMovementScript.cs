@@ -16,7 +16,7 @@ public class PlayerMainMovementScript : MonoBehaviour
     private float _topSprintSpeed = 25;
     [SerializeField]
     private float _sprintSpeedMultiplier;
-    
+    private float _finalSprintSpeedMultiplier;
     private float _finalSpeed;
 
     private float _xMove;
@@ -42,7 +42,7 @@ public class PlayerMainMovementScript : MonoBehaviour
     float _staminaRecoveryRate;
     
     
-    float _maxStamina = 10;
+    public float _maxStamina = 10;
     public float _currentStamina;
 
     public bool _exhausted = false;
@@ -78,7 +78,7 @@ public class PlayerMainMovementScript : MonoBehaviour
     float _gravityScale;
     float _gravity = -9.81f;
     bool _isFalling = false;
-
+    bool _canJump = true;
 
     Camera _mainCam;
     CharacterController _characterController;
@@ -135,6 +135,11 @@ public class PlayerMainMovementScript : MonoBehaviour
             MovementSpeedManager();
             Jump();
         }
+        else
+        {
+            _finalSpeed= _jogSpeed;
+            _currentStamina= _maxStamina;
+        }
         
         
     }
@@ -142,7 +147,7 @@ public class PlayerMainMovementScript : MonoBehaviour
     void Jump()
     {
         //checks if player is off ground//so that player cannot jump mid-air
-        if(!Physics.Raycast(_groundCheck.position, Vector3.down, 1.5f))
+        if(!Physics.Raycast(_groundCheck.position, Vector3.down, 1.5f) && _finalVertForce < 0 && !_characterController.isGrounded)
         {
             //Debug.Log("Grounded");
             _isFalling= true;
@@ -151,15 +156,16 @@ public class PlayerMainMovementScript : MonoBehaviour
         //when touching ground, no longer falling//reset vertical force
         if(_characterController.isGrounded)
         {
+            _canJump= true;
             _isFalling= false;
             _finalVertForce = 0;
         }
         //player can only jump if that are grounded
-        if (Input.GetKey(KeyCode.Space)&& !_isFalling)
+        if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
             //adds upward force//take initial verical force multiplies it by gravity and inverses it by a factor of 3
             _finalVertForce += Mathf.Sqrt((_initialVertForce * -1 * _gravity));
-
+            _canJump= false;
         }
         //gravity is -9.81 ms^2, as such Time.deltaTime is implemented twice, here, and once again in movement method
         _finalVertForce += _gravity * _gravityScale * Time.deltaTime;
@@ -188,17 +194,29 @@ public class PlayerMainMovementScript : MonoBehaviour
 
     void MovementSpeedManager()
     {
-        //if(_staminaText.enabled)
-        //_staminaText.text = _currentStamina.ToString("F0");
-
+        
+        //updates slider accordingly
         if (_staminaSlider.enabled)
             _staminaSlider.value = _currentStamina;
 
-        if (_currentStamina >= _maxStamina)
+        if(_currentStamina >= _maxStamina)
         {
             _exhaustedIndicator.enabled = false;
             _exhausted = false;
             _stamina_SliderColor.color = Color.yellow;
+        }
+        else if (!_exhausted && _currentStamina >= 3 )
+        {//when stamina is greater return to default state
+           
+            _finalSprintSpeedMultiplier = _sprintSpeedMultiplier;
+            _topSprintSpeed = _jogSpeed * 2;
+        }
+        //living on the edge, when stamina is low, change color to red, second wind State, player speeds up faster and has higher top speed
+        else if (!_exhausted && _currentStamina < 3)
+        {
+            _stamina_SliderColor.color = Color.red;
+            _topSprintSpeed = (_jogSpeed * 2) + 10;
+            _finalSprintSpeedMultiplier = _sprintSpeedMultiplier + 2;
         }
 
        
@@ -214,17 +232,17 @@ public class PlayerMainMovementScript : MonoBehaviour
             if (_currentStamina > 0)
                 _currentStamina -= _staminaDepletionMultiplier * Time.deltaTime;
 
+            //players Field of View is increase, to give illusion of fast speed
             float fov = _mainCam.fieldOfView;
-
             if(fov < _sprintFOV)
-            {
+            {//increases by a factor of 4
                 _mainCam.fieldOfView += 4 * Time.deltaTime;
             }
             
              
 
 
-            _finalSpeed += Time.deltaTime * _sprintSpeedMultiplier;
+            _finalSpeed += Time.deltaTime * _finalSprintSpeedMultiplier;
             //clamp sprint speed, so it cannot rise higher then top speed
             _finalSpeed = Mathf.Clamp(_finalSpeed, _jogSpeed + 1, _topSprintSpeed);
 
@@ -233,8 +251,8 @@ public class PlayerMainMovementScript : MonoBehaviour
             //if they are still moving, decreass the movement speed until it is back to jogspeed
             if((_xMove != 0 || _zMove != 0) && _finalSpeed != _jogSpeed)
             {
+                //player's fov is returned to normal when they stop sprinting
                 float fov = _mainCam.fieldOfView;
-
                 if (fov > _defaultFOV)
                 {
                     _mainCam.fieldOfView -= 4 * Time.deltaTime;
@@ -255,7 +273,7 @@ public class PlayerMainMovementScript : MonoBehaviour
                 else//if not exhausted, return to normal jogging speed
                 {
                     
-                    _finalSpeed -= Time.deltaTime * _sprintSpeedMultiplier * 2;
+                    _finalSpeed -= Time.deltaTime * _finalSprintSpeedMultiplier * 2;
                     //clamp speed, until it reaches _jogspeed
                     _finalSpeed = Mathf.Clamp(_finalSpeed, _jogSpeed, _topSprintSpeed);
                 }
@@ -264,6 +282,7 @@ public class PlayerMainMovementScript : MonoBehaviour
             }
             else//if player stops moveing all together, instantly set movespeed to jogspeed
             {
+                //player's fov is returned to normal immediatly when they stop moving
                 float fov = _mainCam.fieldOfView;
                 if (fov > _defaultFOV)
                 {
@@ -274,9 +293,9 @@ public class PlayerMainMovementScript : MonoBehaviour
                     _mainCam.fieldOfView = _defaultFOV;
                 }
 
-                //replenish Stamina at double the rate
+                //replenish Stamina at faster the rate
                 if (_currentStamina < _maxStamina && _currentStamina != 0)
-                    _currentStamina += _staminaRecoveryRate * 2 * Time.deltaTime;
+                    _currentStamina += _staminaRecoveryRate * 1.5f * Time.deltaTime;
 
                 if(_exhausted)//when exhausted move speed decreases drastically
                 {

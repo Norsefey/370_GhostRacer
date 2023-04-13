@@ -367,6 +367,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: RaceCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7642891800472369455, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642891800915021009, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.4319662
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642891800915021009, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.4982042
+      objectReference: {fileID: 0}
+    - target: {fileID: 7642891800915021009, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2252116
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
 --- !u!114 &45646402 stripped
@@ -2635,12 +2651,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
+      propertyPath: _sprintFOV
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _staminaText
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _gravityScale
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _staminaSlider
@@ -2648,7 +2668,7 @@ PrefabInstance:
       objectReference: {fileID: 922988019}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _initialVertForce
-      value: 0.15
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _xSensitivityText
