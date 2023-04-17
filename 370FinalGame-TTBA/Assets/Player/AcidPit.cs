@@ -28,7 +28,7 @@ public class AcidPit : MonoBehaviour
             Debug.Log("PLayer Fell in ");
             
             other.GetComponent<PlayerMainMovementScript>()._canMove= false;
-
+           
 
 
             StartCoroutine(CanMoveAgain(other));

@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6674331764643057389}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.889, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6674331764959863328}
@@ -152,18 +152,25 @@ MonoBehaviour:
   _sprintSpeedMultiplier: 5
   _canMove: 0
   _canLook: 1
-  _staminaText: {fileID: 0}
+  _exhaustedIndicator: {fileID: 0}
+  _staminaSlider: {fileID: 0}
+  _stamina_SliderColor: {fileID: 0}
   _staminaDepletionMultiplier: 2
   _staminaRecoveryRate: 4
+  _maxStamina: 10
   _currentStamina: 0
   _exhausted: 0
   _xSensitivity: 180
-  _ySensitivity: 9
+  _xSensesitivitySlider: {fileID: 0}
+  _xSensitivityText: {fileID: 0}
   _defaultFOV: 60
-  _sprintFOV: 80
-  _initialVertForce: 1.5
+  _sprintFOV: 90
+  _initialVertForce: 7
   _groundCheck: {fileID: 6674331765774880332}
-  _gravityScale: 2
+  _gravityScale: 2.5
+  _runnableWall:
+    serializedVersion: 2
+    m_Bits: 0
   _cameraZRotation: 0
   _invertCam: 1
   _slowDown: 1

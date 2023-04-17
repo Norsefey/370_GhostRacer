@@ -2598,10 +2598,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6674331764643057384, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.889
-      objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863328, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2647,29 +2643,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
-      propertyPath: testing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
-      propertyPath: _sprintFOV
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
-      propertyPath: _staminaText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
-      propertyPath: _gravityScale
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _staminaSlider
       value: 
       objectReference: {fileID: 922988019}
-    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
-      propertyPath: _initialVertForce
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _xSensitivityText
       value: 

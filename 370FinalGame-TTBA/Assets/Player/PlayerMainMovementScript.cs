@@ -82,8 +82,6 @@ public class PlayerMainMovementScript : MonoBehaviour
 
     Camera _mainCam;
     CharacterController _characterController;
-    
-    
     //variables red ghost will use to mess with player
     public float _cameraZRotation = 0;//turns camerea upside
     public float _invertCam = 1;//inverst controls
@@ -133,7 +131,9 @@ public class PlayerMainMovementScript : MonoBehaviour
         {
             MovementInput();
             MovementSpeedManager();
+            
             Jump();
+           
         }
         else
         {
@@ -170,7 +170,6 @@ public class PlayerMainMovementScript : MonoBehaviour
         //gravity is -9.81 ms^2, as such Time.deltaTime is implemented twice, here, and once again in movement method
         _finalVertForce += _gravity * _gravityScale * Time.deltaTime;
     }
-
 
     void MovementInput()
     {
@@ -210,6 +209,7 @@ public class PlayerMainMovementScript : MonoBehaviour
            
             _finalSprintSpeedMultiplier = _sprintSpeedMultiplier;
             _topSprintSpeed = _jogSpeed * 2;
+            _stamina_SliderColor.color = Color.yellow;
         }
         //living on the edge, when stamina is low, change color to red, second wind State, player speeds up faster and has higher top speed
         else if (!_exhausted && _currentStamina < 3)
