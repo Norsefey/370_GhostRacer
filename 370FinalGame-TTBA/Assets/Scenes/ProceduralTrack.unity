@@ -251,10 +251,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1272026635, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1629396839, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -366,22 +362,6 @@ PrefabInstance:
     - target: {fileID: 7642891800472369453, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
       propertyPath: m_Name
       value: RaceCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7642891800472369455, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
-      propertyPath: m_UiScaleMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7642891800915021009, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.4319662
-      objectReference: {fileID: 0}
-    - target: {fileID: 7642891800915021009, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.4982042
-      objectReference: {fileID: 0}
-    - target: {fileID: 7642891800915021009, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.2252116
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
@@ -2651,6 +2631,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 732001255}
     - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
+      propertyPath: _sprintActionLines
+      value: 
+      objectReference: {fileID: 1269144990}
+    - target: {fileID: 6674331764959863329, guid: 16112a3af6d88ed44ac3ec2cfe1a8bfc, type: 3}
       propertyPath: _exhaustedIndicator
       value: 
       objectReference: {fileID: 45646403}
@@ -3719,6 +3703,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 423ab7e3cb2b4c546801f704394abcd1, type: 3}
   m_PrefabInstance: {fileID: 1243168428}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1269144990 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1269144990, guid: 501822709d7b8684ebe11159a8e538bd, type: 3}
+  m_PrefabInstance: {fileID: 45646401}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1281334375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6377,7 +6372,7 @@ PrefabInstance:
       objectReference: {fileID: 1735783457}
     - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
       propertyPath: TrackPartsToSpawn.Array.size
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
       propertyPath: TrackPartsToSpawn.Array.data[0]
@@ -6395,5 +6390,25 @@ PrefabInstance:
       propertyPath: TrackPartsToSpawn.Array.data[4]
       value: 
       objectReference: {fileID: 7044249485126254441, guid: 1c0b9ce88550bc5439da2f14afda54e4, type: 3}
+    - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
+      propertyPath: TrackPartsToSpawn.Array.data[5]
+      value: 
+      objectReference: {fileID: 7044249485126254441, guid: 290dba11af9447f4692d13633d5e6cf1, type: 3}
+    - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
+      propertyPath: TrackPartsToSpawn.Array.data[6]
+      value: 
+      objectReference: {fileID: 7044249485126254441, guid: 6c88ba5c5ec436548918a637186f90c7, type: 3}
+    - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
+      propertyPath: TrackPartsToSpawn.Array.data[7]
+      value: 
+      objectReference: {fileID: 7044249485126254441, guid: d112eb0ec227b5646a466edbfb8aa4e9, type: 3}
+    - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
+      propertyPath: TrackPartsToSpawn.Array.data[8]
+      value: 
+      objectReference: {fileID: 7044249485126254441, guid: 6d0c2a21921cbeb459d6af8b9a98d00b, type: 3}
+    - target: {fileID: 8541231023274248671, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}
+      propertyPath: TrackPartsToSpawn.Array.data[9]
+      value: 
+      objectReference: {fileID: 7044249485126254441, guid: 7717d3ce35cd2204d877d1d35c99bb2e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc273aa93efac184daf5de7765e3f0ce, type: 3}

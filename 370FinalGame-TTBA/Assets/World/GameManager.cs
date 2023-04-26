@@ -95,7 +95,9 @@ public class GameManager : MonoBehaviour
         "Frikin",
         "Franklin",
         "Jankin",
-        "Editin"
+        "Editin",
+        "Edisin",
+        "Dilin"
     };
 
     //race Conditions

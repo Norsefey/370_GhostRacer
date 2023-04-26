@@ -6,8 +6,7 @@ public class NPC_TargetPoints : MonoBehaviour
 {
 
 
-    //[SerializeField]//manually assigned in editor//do so in sequantial order
-    //public GameObject[] ArrayOfArrays;
+   
 
     public List<GameObject> ArrayOfArrays = new List<GameObject>();
 

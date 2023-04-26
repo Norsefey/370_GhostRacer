@@ -234,7 +234,7 @@ public class NPCManager : MonoBehaviour
             if(_currentDistance > _minDistance + 2)
             {
                 //Debug.Log("Changing Target");
-                RandomPointSelect();
+                //RandomPointSelect();
             }
 
         }else if (other.CompareTag("Obstacle"))

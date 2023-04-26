@@ -42,9 +42,9 @@ public class TrackGenerator : MonoBehaviour
         }
         
         //player sets track length in Start scene
-        if(!testing)//Testing is developer tool
-            _trackLength = PlayerStats._finalTrackLength;
+        _trackLength = PlayerStats._finalTrackLength;
 
+        //amount of NPCs that will be in race, set at start scene//set by factor of 5
         _NPCBatchCount = PlayerStats._finalNPCCount / 5;
 
         for(int x= 0; x < _NPCBatchCount; x++)
@@ -139,13 +139,15 @@ public class TrackGenerator : MonoBehaviour
                 delta= 0;
 
                 //object spawned is assigned to a variable in order to assign it to list
-                var trackpart = Instantiate(TrackPartsToSpawn[delta], _startingCP.position, _startingCP.rotation);
-                ActiveTrackPartsList.Add(trackpart);
+                var trackPart = Instantiate(TrackPartsToSpawn[delta], _startingCP.position, _startingCP.rotation);
+                ActiveTrackPartsList.Add(trackPart);
+
+                AssignTargetPoints(trackPart.transform);
 
                 //get the target points from track part//spawn points will always be the second child
-                Transform AOA = trackpart.transform.GetChild(1);
+                //Transform AOA = trackPart.transform.GetChild(1);
                 //assign the target points to the NPC target points script//no more manual assign needed
-                npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+                //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
 
             }else if(x >= _trackLength)//check if end of designated length, if so spawn in the finsih line
             {
@@ -165,11 +167,10 @@ public class TrackGenerator : MonoBehaviour
                 if(!CheckCollisionWithTrack(conectionPoint, ActiveTrackPartsList[x - 1].transform.forward))
                 {
                     
-                    var trackpart = Instantiate(TrackPartsToSpawn[delta], conectionPoint.position, conectionPoint.rotation);
-                    ActiveTrackPartsList.Add(trackpart);
+                    var trackPart = Instantiate(TrackPartsToSpawn[delta], conectionPoint.position, conectionPoint.rotation);
+                    ActiveTrackPartsList.Add(trackPart);
 
-                    Transform AOA = trackpart.transform.GetChild(1);
-                    npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+                    AssignTargetPoints(trackPart.transform);
 
                 }
                 else
@@ -178,11 +179,12 @@ public class TrackGenerator : MonoBehaviour
                     if (!CheckCollisionWithTrack(conectionPoint, ActiveTrackPartsList[x - 1].transform.right))
                     {//right side open spawn in right curve
                         Debug.Log("Right Free");
-                        var trackpart = Instantiate(TrackPartsToSpawn[1], conectionPoint.position, conectionPoint.rotation);
-                        ActiveTrackPartsList.Add(trackpart);
+                        var trackPart = Instantiate(TrackPartsToSpawn[1], conectionPoint.position, conectionPoint.rotation);
+                        ActiveTrackPartsList.Add(trackPart);
 
-                        Transform AOA = trackpart.transform.GetChild(1);
-                        npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+                        AssignTargetPoints(trackPart.transform);
+                        //Transform AOA = trackpart.transform.GetChild(1);
+                        //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
 
                         //update curve counter
                         Debug.Log("Spawning Right curve");
@@ -194,11 +196,15 @@ public class TrackGenerator : MonoBehaviour
                     else if(!CheckCollisionWithTrack(conectionPoint, -ActiveTrackPartsList[x - 1].transform.right))
                     {//left side open spawn in left curve
                         Debug.Log("Left Free");
-                        var trackpart = Instantiate(TrackPartsToSpawn[2], conectionPoint.position, conectionPoint.rotation);
-                        ActiveTrackPartsList.Add(trackpart);
+                        var trackPart = Instantiate(TrackPartsToSpawn[2], conectionPoint.position, conectionPoint.rotation);
+                        ActiveTrackPartsList.Add(trackPart);
 
-                        Transform AOA = trackpart.transform.GetChild(1);
-                        npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+
+                        AssignTargetPoints(trackPart.transform); 
+                        //Transform AOA = trackPart.transform.GetChild(1);
+                        //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+                        
+                        
                         //update curve counter
                         Debug.Log("Spawning Left curve");
                         leftCurveCounter++;
@@ -224,14 +230,31 @@ public class TrackGenerator : MonoBehaviour
     }
 
 
+    void AssignTargetPoints(Transform trackPart)
+    {//takes in the transform of a track part, and looks at children, if child is TargetPoints, assigns it to list
+
+        for (int j = 0; j < trackPart.childCount; j++)
+        {
+            Debug.Log(j+ " / " + trackPart.childCount);
+            Transform AOA = trackPart.transform.GetChild(j);
+            if (AOA.CompareTag("TP"))
+            {
+                npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+            }
+
+        }
+    }
+
 
     void SpawnFinishLine(Transform conectionPoint)
     {//spawn in finihs line//set gamemanger, which holds collider to finihsline position
-        var trackpart = Instantiate(_finishLine, conectionPoint.position, conectionPoint.rotation);
-        ActiveTrackPartsList.Add(trackpart);
+        var trackPart = Instantiate(_finishLine, conectionPoint.position, conectionPoint.rotation);
+        ActiveTrackPartsList.Add(trackPart);
 
-        Transform AOA = trackpart.transform.GetChild(1);
-        npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
+        AssignTargetPoints(trackPart.transform);
+
+        //Transform AOA = trackpart.transform.GetChild(1);
+        //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
 
         _gameManager.transform.position= conectionPoint.position;
         _gameManager.transform.rotation = conectionPoint.rotation;

@@ -10,6 +10,7 @@ TagManager:
   - FinishLine
   - CP
   - Trickster
+  - TP
   layers:
   - Default
   - TransparentFX

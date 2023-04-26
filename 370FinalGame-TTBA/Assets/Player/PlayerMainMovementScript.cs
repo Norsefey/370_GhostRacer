@@ -31,6 +31,8 @@ public class PlayerMainMovementScript : MonoBehaviour
     
     [SerializeField]
     Image _exhaustedIndicator;
+    [SerializeField]
+    Image _sprintActionLines;
 
     [SerializeField]
     Slider _staminaSlider;
@@ -214,6 +216,7 @@ public class PlayerMainMovementScript : MonoBehaviour
         //living on the edge, when stamina is low, change color to red, second wind State, player speeds up faster and has higher top speed
         else if (!_exhausted && _currentStamina < 3)
         {
+            _sprintActionLines.enabled = true;
             _stamina_SliderColor.color = Color.red;
             _topSprintSpeed = (_jogSpeed * 2) + 10;
             _finalSprintSpeedMultiplier = _sprintSpeedMultiplier + 2;
@@ -238,18 +241,19 @@ public class PlayerMainMovementScript : MonoBehaviour
             {//increases by a factor of 4
                 _mainCam.fieldOfView += 4 * Time.deltaTime;
             }
+
+
+
             
-             
-
-
             _finalSpeed += Time.deltaTime * _finalSprintSpeedMultiplier;
             //clamp sprint speed, so it cannot rise higher then top speed
             _finalSpeed = Mathf.Clamp(_finalSpeed, _jogSpeed + 1, _topSprintSpeed);
 
         }else if(!_isFalling)//when player stops sprinting
         {
+            _sprintActionLines.enabled = false;
             //if they are still moving, decreass the movement speed until it is back to jogspeed
-            if((_xMove != 0 || _zMove != 0) && _finalSpeed != _jogSpeed)
+            if ((_xMove != 0 || _zMove != 0) && _finalSpeed != _jogSpeed)
             {
                 //player's fov is returned to normal when they stop sprinting
                 float fov = _mainCam.fieldOfView;
