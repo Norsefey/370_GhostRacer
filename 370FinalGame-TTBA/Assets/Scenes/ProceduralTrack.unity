@@ -1197,6 +1197,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 45646402}
     - target: {fileID: 6212695771255446525, guid: 22dd6b60c7a2e954887759de8d367e34, type: 3}
+      propertyPath: _overlayPanel
+      value: 
+      objectReference: {fileID: 2044907892}
+    - target: {fileID: 6212695771255446525, guid: 22dd6b60c7a2e954887759de8d367e34, type: 3}
       propertyPath: _positionText
       value: 
       objectReference: {fileID: 1069854107}

@@ -17,11 +17,11 @@ public class TrackGenerator : MonoBehaviour
 
     [Header("Track Parts")]
     [SerializeField]
-    Transform _startingCP;
+    Transform _startingCP;//starting line, placed in mannually
     [SerializeField]
-    GameObject _finishLine;
+    GameObject _finishLine;//the last line, Spawned in automatically
     [SerializeField]
-    GameObject[] TrackPartsToSpawn;
+    GameObject[] TrackPartsToSpawn;//list of all track varieties
 
     public List<GameObject> ActiveTrackPartsList = new List<GameObject>();
 
@@ -33,6 +33,7 @@ public class TrackGenerator : MonoBehaviour
 
     // Start is called before the first frame update
 
+    //for testing
     private bool restart;
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class TrackGenerator : MonoBehaviour
 
         for(int x= 0; x < _NPCBatchCount; x++)
         {
-            Debug.Log("Spawning ghosts");
+            //Debug.Log("Spawning ghosts");
             NPCPacks[x].SetActive(true);
         }
 
@@ -62,10 +63,10 @@ public class TrackGenerator : MonoBehaviour
     private void Update()
     {
         //for developer testing
-        if (restart)
+        /*if (restart)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        }*/
     }
 
 
@@ -144,17 +145,13 @@ public class TrackGenerator : MonoBehaviour
 
                 AssignTargetPoints(trackPart.transform);
 
-                //get the target points from track part//spawn points will always be the second child
-                //Transform AOA = trackPart.transform.GetChild(1);
-                //assign the target points to the NPC target points script//no more manual assign needed
-                //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
-
             }else if(x >= _trackLength)//check if end of designated length, if so spawn in the finsih line
             {
                 Transform conectionPoint = ActiveTrackPartsList[x - 1].gameObject.transform.GetChild(0);
 
                 Debug.Log("Finished track");
                 SpawnFinishLine(conectionPoint);
+                //Done with spawning, break from for loop
                 break;
                 
             }
@@ -178,14 +175,13 @@ public class TrackGenerator : MonoBehaviour
                     Debug.Log("Straight direction Blocked");
                     if (!CheckCollisionWithTrack(conectionPoint, ActiveTrackPartsList[x - 1].transform.right))
                     {//right side open spawn in right curve
+                        
                         Debug.Log("Right Free");
                         var trackPart = Instantiate(TrackPartsToSpawn[1], conectionPoint.position, conectionPoint.rotation);
                         ActiveTrackPartsList.Add(trackPart);
 
                         AssignTargetPoints(trackPart.transform);
-                        //Transform AOA = trackpart.transform.GetChild(1);
-                        //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
-
+                       
                         //update curve counter
                         Debug.Log("Spawning Right curve");
                         rightCurveCounter++;
@@ -195,15 +191,13 @@ public class TrackGenerator : MonoBehaviour
                     }
                     else if(!CheckCollisionWithTrack(conectionPoint, -ActiveTrackPartsList[x - 1].transform.right))
                     {//left side open spawn in left curve
+                        
                         Debug.Log("Left Free");
                         var trackPart = Instantiate(TrackPartsToSpawn[2], conectionPoint.position, conectionPoint.rotation);
                         ActiveTrackPartsList.Add(trackPart);
 
 
                         AssignTargetPoints(trackPart.transform); 
-                        //Transform AOA = trackPart.transform.GetChild(1);
-                        //npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
-                        
                         
                         //update curve counter
                         Debug.Log("Spawning Left curve");
@@ -235,7 +229,7 @@ public class TrackGenerator : MonoBehaviour
 
         for (int j = 0; j < trackPart.childCount; j++)
         {
-            Debug.Log(j+ " / " + trackPart.childCount);
+            //Debug.Log(j+ " / " + trackPart.childCount);
             Transform AOA = trackPart.transform.GetChild(j);
             if (AOA.CompareTag("TP"))
             {

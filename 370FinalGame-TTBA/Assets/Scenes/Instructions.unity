@@ -180,11 +180,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Instructions:\n\n<color=green>WASD to Move </color>\n\n<color=white>Space
-    to Jump </color>\n\n<color=red>Left click on Trickster to scare it away\n<size=25>Red
-    Ghost will inflict a random Temporary Status Effect</size>.</color>\n<color=yellow>Hold
-    Shift to Sprint \n<size=25>Sprinting will drain stamina, if Stamina reachs zero,
-    slowed down until Stamina fully recovered, full stop speeds up recovery</color>\n"
+  m_text: "Instructions:\n\n<color=green>WASD to Move </color> <color=white>Space
+    to Jump </color> <color=orange>P-Pause Game </color>\n\n<color=red>Left click
+    on Trickster to scare it away\n<size=25>Red Ghost will inflict a random Temporary
+    Status Effect</size>.</color>\n<color=yellow>Hold Shift to Sprint \n<size=25>Sprinting
+    will drain stamina, if Stamina reachs zero, slowed down until Stamina fully recovered,
+    full stop speeds up recovery</color>\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

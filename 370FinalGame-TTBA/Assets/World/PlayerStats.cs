@@ -7,7 +7,9 @@ using UnityEngine.SceneManagement;
 
 
 public class PlayerStats : MonoBehaviour
-{
+{//should be renamed to GameStats
+
+
     [Header("Name Input")]
     //using input field to edit final player name
     [SerializeField]

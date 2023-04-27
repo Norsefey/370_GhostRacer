@@ -9,7 +9,7 @@ public class PlayerMainMovementScript : MonoBehaviour
     [SerializeField]
     bool testing;
 
-
+    [Space(5)]
     [Header ("Main Movement")]
     
     private float _jogSpeed = 10;
@@ -26,7 +26,6 @@ public class PlayerMainMovementScript : MonoBehaviour
     public bool _canLook = true;
 
     [Space(5)]
-
     [Header("Stamina")]
     
     [SerializeField]
@@ -68,6 +67,7 @@ public class PlayerMainMovementScript : MonoBehaviour
     [SerializeField]
     float _sprintFOV;
 
+    [Space(5)]
     [Header("Jumping")]
     [SerializeField]
     float _initialVertForce;
@@ -115,6 +115,9 @@ public class PlayerMainMovementScript : MonoBehaviour
         _finalSpeed = _jogSpeed;
         _mainCam.fieldOfView = _defaultFOV;
         _currentStamina = _maxStamina;
+
+
+       
     }
 
     // Update is called once per frame
@@ -133,9 +136,10 @@ public class PlayerMainMovementScript : MonoBehaviour
         {
             MovementInput();
             MovementSpeedManager();
-            
+
             Jump();
-           
+
+
         }
         else
         {
@@ -189,6 +193,7 @@ public class PlayerMainMovementScript : MonoBehaviour
         moveDir = transform.TransformDirection(moveDir);
 
         moveDir.y += _finalVertForce;
+      
 
         _characterController.Move(moveDir * Time.deltaTime);
     }

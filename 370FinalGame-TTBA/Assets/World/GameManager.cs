@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     [Header("UI Panels")]
     
     [SerializeField]
-    Image _countDownPanel;
+    Image _overlayPanel;
     [SerializeField]
     Image _crosshair;
 
@@ -216,7 +216,7 @@ public class GameManager : MonoBehaviour
         {
             //hid countdown and starting UI
             _startCountDown = false;
-            _countDownPanel.enabled = false;
+            _overlayPanel.enabled = false;
             _countDownText.enabled = false;
             _countDownText.enabled= false;
             
@@ -327,7 +327,7 @@ public class GameManager : MonoBehaviour
             }
 
            
-            _countDownPanel.enabled = true;
+            _overlayPanel.enabled = true;
             _countDownText.enabled = true;
         }
     }
@@ -415,7 +415,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = true;
         //hid current racer positions//since it overlaps with buttons
         _positionText.enabled = false;
-
+        _overlayPanel.enabled = true;
         //show menu buttons and sensitivity sliders
         _mainMenuButton.gameObject.SetActive(true);
         _replayButton.gameObject.SetActive(true);
@@ -435,6 +435,7 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         //return racer position text
         _positionText.enabled = true;
+        _overlayPanel.enabled = false;
         //hid all buttons and non race UI
         _mainMenuButton.gameObject.SetActive(false);
         _replayButton.gameObject.SetActive(false);
