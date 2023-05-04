@@ -59,11 +59,15 @@ public class NPCManager : MonoBehaviour
     float _minRecoverTime;
     [SerializeField]
     float _maxRecoverTime;
-    
-    
+
+    Renderer _ghostRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
+        _ghostRenderer = transform.GetChild(0).GetComponent<Renderer>();
+        _ghostRenderer.material.color = Random.ColorHSV();
+
         if (!testing)
         {
             //npcs inherite the same base 
