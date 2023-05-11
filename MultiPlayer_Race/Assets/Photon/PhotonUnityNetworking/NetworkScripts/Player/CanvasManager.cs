@@ -79,7 +79,7 @@ public class CanvasManager : MonoBehaviour
         
 
         if (myMovementScript._playerFinished && !_finishedUIShown)
-        {
+        {//displays finished UI
             _racerPositionText.gameObject.SetActive(false);
 
             _staminaSlider.gameObject.SetActive(false);
@@ -123,6 +123,9 @@ public class CanvasManager : MonoBehaviour
             //DisplayRacersPosition();
             DisplayerRacers();
         }
+        
+        
+        
         //Settings Menu//Does not pause game time
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -222,7 +225,7 @@ public class CanvasManager : MonoBehaviour
     }
 
     void DisplayerRacers()
-    {
+    {//displays all racers//player name in green
         _racerPositionText.text = "";
         for (int x = 0; x < gameNetworkController.Racers.Count(); x++)
         {
@@ -242,7 +245,7 @@ public class CanvasManager : MonoBehaviour
         
     }
 
-
+    //old display racers//crashes when player leaves//improper name display for players
     void DisplayRacersPosition()
     {
         //resets text
@@ -353,7 +356,7 @@ public class CanvasManager : MonoBehaviour
     }
 
     void RaceTimerManager()
-    {
+    {//displays race time//seconds and minutes
         _raceTimerSec += Time.deltaTime;
         if (_raceTimerSec >= 60)
         {
@@ -365,7 +368,7 @@ public class CanvasManager : MonoBehaviour
         _raceTimerText.text = _raceTimerMin + " : " + _raceTimerSec.ToString("00");
     }
     public void MouseSensitivityChange()
-    {//allows player to change sensitivity of mouse
+    {//allows player to change sensitivity of mouse using slider
         myMovementScript.XSensitivity = _xSensesitivitySlider.value;
         _xSensitivityText.text = myMovementScript.XSensitivity.ToString();
     }

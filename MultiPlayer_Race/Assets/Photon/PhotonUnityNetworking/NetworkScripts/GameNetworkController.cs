@@ -58,23 +58,15 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        trackLength = WorldStats._finalTrackLength;
-        view = GetComponent<PhotonView>();
+        trackLength = WorldStats._finalTrackLength;//value set in waitroom
+        view = GetComponent<PhotonView>();//needed to sync scene with all players
 
-          npc_TargetPoints = GetComponent<NPC_TargetPoints>();
-        if (PhotonNetwork.IsMasterClient)
+          npc_TargetPoints = GetComponent<NPC_TargetPoints>();//target points NPCs will follow
+        if (PhotonNetwork.IsMasterClient)//only host generates track
             CreateTrack();
 
-
-        //playerOwnedObjects.Clear();
-        BeforeRacePrep();
-        CreatePlayer();
-    }
-    private void Start()
-    {
-        
-        
-
+        BeforeRacePrep();//setup for Npcs
+        CreatePlayer();//spawns in player pawns
     }
 
     private void Update()
@@ -97,7 +89,7 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
     }
 
     void StartRace()
-    {
+    {//host enables all NPCS
     
         if (!PhotonNetwork.IsMasterClient)
         {
@@ -114,26 +106,8 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
 
     }
 
-
-    public void EndRace()
-    {
-        Debug.Log("ENding Race");
-        if (!PhotonNetwork.IsMasterClient)
-        {
-            return;
-        }
-        else
-        {
-            for (int n = 0; n < npcs.Count; n++)
-            {
-                //npcs[n].gameObject.GetComponent<NPCManager>().enabled = true;
-                npcs[n].GetComponent<NPCManager>()._active = false;
-            }
-        }
-    }
-
     void BeforeRacePrep()
-    {
+    {//assigns NPCs with names and colors and adds them to the racers list
         Renderer _ghostRenderer;
         Color[] ghostColors =
         {
@@ -235,10 +209,9 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
         Racers.Add(playerPawn);
     }
 
-
     void CreateTrack()
-    {
-        ActiveTrackParts.Clear();
+    {//generates track
+        ActiveTrackParts.Clear();//clears anythiung set in previous states/plays
 
         //spawn in a striaght at start
         ActiveTrackParts.Add(PhotonNetwork.InstantiateRoomObject(Path.Combine("TrackParts", trackParts[0].name), startingCP.position, startingCP.rotation));
@@ -274,10 +247,7 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
                 SpawnFinishLine(conectionPoint);
                 break;
             }
-
         }
-
-
     }
 
     int CurveChecker(int trackIndex)
@@ -329,7 +299,7 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
 
     bool CheckCollisionWithTrack(Transform cp, Vector3 direction)
     {
-        //Debug.Log("checking if blocked");
+        //casts a ray towards where the track will be spawning//if it hits stops generator
         Ray ray = new Ray(cp.position, direction);
         RaycastHit hit;
 
@@ -338,9 +308,6 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
 
     void AssignTargetPoints(Transform trackPart)
     {//takes in the transform of a track part, and looks at children, if child is TargetPoints, assigns it to list
-
-
-
         for (int j = 0; j < trackPart.childCount; j++)
         {
             //Debug.Log(j+ " / " + trackPart.childCount);
@@ -351,28 +318,25 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
                 AOA.name = trackPart.name + "/" + j;
                 npc_TargetPoints.ArrayOfArrays.Add(AOA.gameObject);
             }
-
         }
-
-
     }
 
     void SpawnFinishLine(Transform conectionPoint)
-    {//spawn in finihs line//set gamemanger, which holds collider to finihsline position
-        var trackPart = PhotonNetwork.InstantiateRoomObject(Path.Combine("TrackParts", "FinishLine"), conectionPoint.position, conectionPoint.rotation); ;
+    {//spawn in finish line // part is held in trackparts folder and named FinishLine
+        var trackPart = PhotonNetwork.InstantiateRoomObject(Path.Combine("TrackParts", "FinishLine"), conectionPoint.position, conectionPoint.rotation);
 
         ActiveTrackParts.Add(trackPart);
 
         AssignTargetPoints(trackPart.transform);
 
-        //finishPoint = trackPart.transform.GetChild(0);
+       
     }
 
     public void LeaveGame()
-    {
+    {//allows players to leave game without breaking anything
         Destroy(playerObj);
         if (!PhotonNetwork.IsMasterClient)
-        {
+        {//removes left player from racers list
             Racers.RemoveAll(x => x.gameObject == null);
         }
         
@@ -383,7 +347,7 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
-    {
+    {//if host disconnects//disconnect everyone else as well
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.LogWarning("New Master");
@@ -394,7 +358,7 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
             PhotonNetwork.LeaveRoom();
             PhotonNetwork.Disconnect();
             SceneManager.LoadScene(0);
-            //base.OnMasterClientSwitched(newMasterClient);
+            
         }
 
     }
@@ -406,7 +370,7 @@ public class GameNetworkController : MonoBehaviourPunCallbacks
         base.OnLeftRoom();
     }
     public void JoinNewGame()
-    {
+    {//for button//returns to room menu
         _raceFinished = true;
         PhotonNetwork.LeaveLobby();
         PhotonNetwork.Disconnect();

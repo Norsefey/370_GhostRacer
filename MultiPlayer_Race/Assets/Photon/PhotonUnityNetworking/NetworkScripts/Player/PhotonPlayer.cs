@@ -27,14 +27,14 @@ public class PhotonPlayer : MonoBehaviour
             cam = transform.GetChild(0).gameObject;
 
             if (pv.IsMine)
-            {
+            {//is is the owner, activate camera and movement script and give player name
                 isMine = pv.IsMine;
                 cam.gameObject.SetActive(true);
                 movementScript.enabled = true;
                 gameObject.name = PhotonNetwork.PlayerList[gameController.playerIndex].NickName;
             }
             else
-            {
+            {//if it is not owned by the player//give it the name of the owner, and it it to the proper lists
                 isMine = pv.IsMine;
 
                 gameObject.name = pv.Owner.NickName;
@@ -44,7 +44,7 @@ public class PhotonPlayer : MonoBehaviour
                 gameController.Racers.Add(gameObject);
             }
         }
-
+        //effect shows when a player is debuffed
         debuffEffect = transform.GetChild(3).GetComponent<ParticleSystem>();
     }
 

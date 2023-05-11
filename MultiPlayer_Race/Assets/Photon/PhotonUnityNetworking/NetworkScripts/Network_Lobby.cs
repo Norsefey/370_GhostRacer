@@ -30,7 +30,7 @@ public class Network_Lobby : MonoBehaviourPunCallbacks
     string playerName;
 
     public override void OnConnectedToMaster()
-    {
+    {//once connected display room menu
         Debug.Log("Connected");
         PhotonNetwork.AutomaticallySyncScene = true;
 
@@ -41,14 +41,15 @@ public class Network_Lobby : MonoBehaviourPunCallbacks
     }
 
     public void UpdatePlayerName()
-    {
+    {//sets player's name, used in game scene for racer position
         PhotonNetwork.NickName = playerNameInput.text;
         PlayerPrefs.SetString("NickName", playerNameInput.text);
+        //room menu hidden until player sets a name
         LoadMenuButtons();
     }
 
     private void LoadMenuButtons()
-    {
+    {//displays the room options
         joinRandomButton.SetActive(true);
         createButton.SetActive(true);
         joinSpecificButton.SetActive(true);
@@ -56,7 +57,7 @@ public class Network_Lobby : MonoBehaviourPunCallbacks
     }
 
     public void JoinRandomOpenRoom()
-    {
+    {//connects to a random open room
         joinRandomButton.SetActive(false);
         createButton.SetActive(false);
         joinSpecificButton.SetActive(false);
@@ -67,7 +68,7 @@ public class Network_Lobby : MonoBehaviourPunCallbacks
     }
 
     public void JoinSpecificRoom()
-    {
+    {//joins a room with room number inputed
         joinRandomButton.SetActive(false);
         createButton.SetActive(false);
         joinSpecificButton.SetActive(false);
@@ -78,13 +79,13 @@ public class Network_Lobby : MonoBehaviourPunCallbacks
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
-    {
+    {//when joining a room, if no room is avaible create a room
         
         CreateRoom();
     }
 
     public void CreateRoom()
-    {
+    {//creates a room//gives room an Random ID number
         int roomID = Random.Range(0, 10000);
         RoomOptions roomOptions = new RoomOptions() {IsVisible = true, IsOpen = true, MaxPlayers = (byte)roomSize };
         roomName = "Room" + roomID.ToString();
@@ -92,13 +93,13 @@ public class Network_Lobby : MonoBehaviourPunCallbacks
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
-    {
+    {//if room creation fails//try again
         int randomID = Random.Range(0, 10000);
         CreateRoom();
     }
 
     public void CancelJoin()
-    {
+    {//leave//cancle join//returns to main screen
         joinRandomButton.SetActive(true);
         createButton.SetActive(true);
         joinSpecificButton.SetActive(true);

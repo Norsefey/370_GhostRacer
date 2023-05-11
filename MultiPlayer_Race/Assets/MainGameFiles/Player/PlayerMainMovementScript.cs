@@ -336,7 +336,7 @@ public class PlayerMainMovementScript : MonoBehaviour
             RaycastHit hit;
 
             if (Singleplayer)
-            {
+            {//in single player player can shoot trickster to avoid a debuff
                 if (Physics.Raycast(ray, out hit))
                 {
                     GameObject hitObject = hit.transform.gameObject;
@@ -353,20 +353,19 @@ public class PlayerMainMovementScript : MonoBehaviour
                 }
             }
             else if(canShoot)
-            {
+            {//in multiplayer player can shoot other players to debuff them//they get one shot//which can be recharged by pick up Mysteryboxes
                 if (Physics.Raycast(ray, out hit))
                 {
 
-                    
                     GameObject hitObject = hit.transform.gameObject;
                     PhotonPlayer target = hitObject.GetComponent<PhotonPlayer>();
 
                     if(target != null)
-                    {
+                    {//if it hits a player, give that player a random status effect
                         target.CallIRS();
                     }
                     else
-                    {
+                    {//if player misses//shot is used up and spawn in a bullet effect at hit point
                         PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "BulletEffect"), hit.point, Quaternion.identity);
                     }
 

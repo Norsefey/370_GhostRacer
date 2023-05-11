@@ -5,9 +5,12 @@ using UnityEngine;
 public class MysteryBox : MonoBehaviour
 {
     GameObject mesh;
+   
+
     private void Start()
     {
         mesh = transform.GetChild(0).gameObject;
+      
     }
 
     private void OnTriggerEnter(Collider other)

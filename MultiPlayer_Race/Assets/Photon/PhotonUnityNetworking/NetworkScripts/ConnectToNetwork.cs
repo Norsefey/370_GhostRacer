@@ -11,7 +11,4 @@ public class ConnectToNetwork : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
     }
 
-    
-
-
 }

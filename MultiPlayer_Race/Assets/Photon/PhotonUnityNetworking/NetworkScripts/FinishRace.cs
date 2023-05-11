@@ -59,7 +59,7 @@ public class FinishRace : MonoBehaviour
     }
 
     IEnumerator NPCDeactivate(Collider other)
-    {
+    {//wait a bit,then deactivate the NPC
         yield return new WaitForSeconds(2);
         other.gameObject.GetComponent<NPCManager>()._active = false;
     }
