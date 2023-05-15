@@ -88,6 +88,7 @@ public class WaitRoomController : MonoBehaviourPunCallbacks
             return;
         }
 
+        startButton.SetActive(false);
         PhotonNetwork.CurrentRoom.IsOpen = false;//closes room
         PhotonNetwork.LoadLevel(multiplayerGameSceneIndex);//loads game scene
     }

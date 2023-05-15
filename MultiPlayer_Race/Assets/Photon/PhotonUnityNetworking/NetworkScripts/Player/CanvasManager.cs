@@ -47,6 +47,8 @@ public class CanvasManager : MonoBehaviour
     TMP_Text _raceTimerText;
     [SerializeField]
     Image shootAvaiable;
+    [SerializeField]
+    Image shootAvaiable2;
     float _raceTimerSec = 0;
     float _raceTimerMin = 0;
     bool _finishedUIShown = false;
@@ -190,13 +192,20 @@ public class CanvasManager : MonoBehaviour
                 
                 _stamina_SliderColor.color = Color.red; 
             }
+            
+            //shooting indicator
             if(myMovementScript.canShoot)
             {
                 shootAvaiable.enabled = true;
+                if (myMovementScript._shotCounter == 2)
+                    shootAvaiable2.enabled = true;
+                else
+                    shootAvaiable2.enabled = false;
             }
             else
             {
                 shootAvaiable.enabled = false;
+                
             }
 
             if (myMovementScript.Exhausted)

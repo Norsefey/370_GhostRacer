@@ -5,12 +5,12 @@ using UnityEngine;
 public class MysteryBox : MonoBehaviour
 {
     GameObject mesh;
-   
+    Collider myCollider;
 
     private void Start()
     {
         mesh = transform.GetChild(0).gameObject;
-      
+        myCollider = GetComponent<Collider>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,9 +19,11 @@ public class MysteryBox : MonoBehaviour
         {
             
             mesh.SetActive(false);
+            myCollider.enabled = false;
+
             if (other.GetComponent<PlayerMainMovementScript>().isActiveAndEnabled)
             {
-                other.GetComponent<PlayerMainMovementScript>().canShoot = true;
+                other.GetComponent<PlayerMainMovementScript>()._shotCounter++;
             }
            
             StartCoroutine(Reactivate());
@@ -30,7 +32,10 @@ public class MysteryBox : MonoBehaviour
         else if (other.CompareTag("NPC"))
         {
             mesh.SetActive(false);
+            myCollider.enabled = false;
+
             StartCoroutine(Reactivate());
+
         }
     }
 
@@ -40,6 +45,7 @@ public class MysteryBox : MonoBehaviour
         //after some time reenabled gameobject
 
         yield return new WaitForSeconds(3);
+        myCollider.enabled = true;
         mesh.SetActive(true);
     }
 }

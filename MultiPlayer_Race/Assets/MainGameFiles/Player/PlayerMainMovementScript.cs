@@ -93,7 +93,7 @@ public class PlayerMainMovementScript : MonoBehaviour
 
     //Shooting
     public bool canShoot = false;
-   
+    public int _shotCounter;
 
     private void Awake()
     {
@@ -329,6 +329,22 @@ public class PlayerMainMovementScript : MonoBehaviour
 
     void ShootingMethod()
     {
+        if (_shotCounter > 2)
+            _shotCounter = 2;
+        else if (_shotCounter < 0)
+            _shotCounter = 0;
+
+        if (_shotCounter > 0)
+        {
+            canShoot = true;
+        }
+        else
+        {
+            canShoot = false;
+        }
+
+        
+
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 point = new Vector3(_mainCam.pixelWidth / 2, _mainCam.pixelHeight / 2, 0);
@@ -352,11 +368,11 @@ public class PlayerMainMovementScript : MonoBehaviour
 
                 }
             }
-            else if(canShoot)
+            else if(canShoot && _shotCounter >= 0)
             {//in multiplayer player can shoot other players to debuff them//they get one shot//which can be recharged by pick up Mysteryboxes
                 if (Physics.Raycast(ray, out hit))
                 {
-
+                    _shotCounter--;
                     GameObject hitObject = hit.transform.gameObject;
                     PhotonPlayer target = hitObject.GetComponent<PhotonPlayer>();
 
@@ -370,7 +386,7 @@ public class PlayerMainMovementScript : MonoBehaviour
                     }
 
                 }
-                canShoot = false; 
+                
             }
             
         }
